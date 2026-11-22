@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="__CSP__">
+<meta name="referrer" content="no-referrer">
+<title>__TITLE__</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f6f8; --surface: #ffffff; --surface-2: #f0f2f5; --text: #161a20; --muted: #5b6471; --faint: #8a929d;
+  --border: #e2e5ea; --accent: #0d6e66; --accent-2: #e6f3f1; --accent-ink: #ffffff;
+  --ok: #157a3c; --ok-bg: #e6f5eb; --warn: #9a5b06; --warn-bg: #fdf2e1; --danger: #b42318; --danger-bg: #fdecea;
+  --star: #c98a04; --shadow: 0 1px 2px rgba(16,24,40,.05), 0 2px 6px rgba(16,24,40,.06);
+  --s-paziresh24: #2563eb; --s-doctoreto: #0e8f86; --s-nobat: #c2570c; --s-drnext: #7c3aed; --s-darmankade: #15803d;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1215; --surface: #171b20; --surface-2: #1f242a; --text: #e8ebee; --muted: #a3acb7; --faint: #77808b;
+    --border: #2a3037; --accent: #3cc2b5; --accent-2: #15302d; --accent-ink: #06201d;
+    --ok: #55c983; --ok-bg: #123222; --warn: #f0b252; --warn-bg: #33260f; --danger: #f2877b; --danger-bg: #3a1714;
+    --star: #f2c14e; --shadow: 0 1px 2px rgba(0,0,0,.4);
+    --s-paziresh24: #7aa7ff; --s-doctoreto: #4fd1c5; --s-nobat: #fb9b5a; --s-drnext: #b394ff; --s-darmankade: #5fd48a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1215; --surface: #171b20; --surface-2: #1f242a; --text: #e8ebee; --muted: #a3acb7; --faint: #77808b;
+  --border: #2a3037; --accent: #3cc2b5; --accent-2: #15302d; --accent-ink: #06201d;
+  --ok: #55c983; --ok-bg: #123222; --warn: #f0b252; --warn-bg: #33260f; --danger: #f2877b; --danger-bg: #3a1714;
+  --star: #f2c14e; --shadow: 0 1px 2px rgba(0,0,0,.4);
+  --s-paziresh24: #7aa7ff; --s-doctoreto: #4fd1c5; --s-nobat: #fb9b5a; --s-drnext: #b394ff; --s-darmankade: #5fd48a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.7 "Vazirmatn", Tahoma, "Segoe UI", system-ui, sans-serif;
+}
+a { color: var(--accent); }
+button, input, select { font: inherit; color: inherit; }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 16px; }
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.ltr { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+/* header */
+header.top { padding: 28px 0 8px; }
+.top-row { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+h1 { font-size: 24px; line-height: 1.35; margin: 0 0 4px; font-weight: 800; }
+h1 .q { color: var(--accent); }
+.meta { color: var(--muted); font-size: 13px; }
+.top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.icon-btn {
+  border: 1px solid var(--border); background: var(--surface); border-radius: 10px; padding: 6px 12px;
+  cursor: pointer; font-size: 13px; display: inline-flex; gap: 6px; align-items: center; text-decoration: none; color: var(--text);
+}
+.icon-btn:hover { border-color: var(--accent); }
+.icon-btn.sos { border-color: transparent; background: var(--danger-bg); color: var(--danger); font-weight: 700; }
+
+.banner { margin: 12px 0 0; padding: 10px 14px; border-radius: 12px; font-size: 14px; }
+.banner.warn { background: var(--warn-bg); color: var(--warn); }
+.banner.danger { background: var(--danger-bg); color: var(--danger); }
+
+/* stat tiles */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0 6px; }
+.tile { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow); min-width: 0; }
+.tile .k { font-size: 12.5px; color: var(--muted); }
+.tile .v { font-size: 22px; font-weight: 800; line-height: 1.3; }
+.tile .v.sm { font-size: 15px; font-weight: 700; }
+.tile .s { font-size: 12.5px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+button.tile { text-align: right; cursor: pointer; font: inherit; color: inherit; }
+button.tile:hover { border-color: var(--accent); }
+
+/* toolbar */
+.toolbar {
+  position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); margin-top: 14px;
+}
+.toolbar .wrap { padding-top: 10px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 8px; }
+.tb-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.search { flex: 1 1 240px; position: relative; }
+.search input {
+  width: 100%; padding: 8px 36px 8px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface);
+}
+.search svg { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: var(--faint); }
+input:focus, select:focus, button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 7px 12px; cursor: pointer; font-size: 13.5px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+select { padding: 7px 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.check { display: inline-flex; gap: 6px; align-items: center; font-size: 13.5px; cursor: pointer; user-select: none; }
+.check input { accent-color: var(--accent); width: 16px; height: 16px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 3px 11px; font-size: 13px; cursor: pointer;
+  white-space: nowrap;
+}
+.chip .c { color: var(--faint); margin-inline-start: 4px; }
+.chip[aria-pressed="true"] { background: var(--accent-2); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.chip[aria-pressed="true"] .c { color: inherit; }
+.chip.site { border-inline-start: 3px solid var(--site); }
+.chip.site[aria-pressed="false"] { opacity: .55; text-decoration: line-through; }
+
+/* sections */
+main { padding: 16px 0 40px; }
+h2 { font-size: 17px; margin: 22px 0 10px; font-weight: 800; }
+.best { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.best-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 4px; min-width: 0;
+}
+.best-card .lbl { font-size: 12.5px; font-weight: 700; color: var(--accent); }
+.best-card .who { font-weight: 700; }
+.best-card .row { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-top: 4px; }
+
+/* doctor cards */
+.list { display: flex; flex-direction: column; gap: 14px; }
+.doc { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; scroll-margin-top: 140px; }
+.doc.flash { animation: flash 1.4s ease; }
+@keyframes flash { 0%, 40% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: var(--shadow); } }
+.doc-head { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px 10px; }
+.avatar {
+  flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--accent-2); color: var(--accent);
+  display: grid; place-items: center; font-weight: 800; font-size: 18px;
+}
+.doc-title { flex: 1; min-width: 0; }
+.doc-title h3 { margin: 0; font-size: 17px; line-height: 1.45; }
+.doc-title .sub { color: var(--muted); font-size: 13.5px; }
+.rating { flex: none; text-align: left; font-size: 13px; color: var(--muted); }
+.rating b { color: var(--text); font-size: 15px; }
+.rating .star { color: var(--star); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 16px 10px; }
+.tag { font-size: 12px; padding: 1px 9px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.tag.site { color: var(--site); background: color-mix(in srgb, var(--site) 12%, transparent); font-weight: 700; }
+.tag.ins { background: var(--ok-bg); color: var(--ok); }
+
+.opts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+.opt {
+  display: grid; grid-template-columns: 112px minmax(0, 1.4fr) minmax(0, 1.3fr) minmax(0, 1fr) 92px; gap: 12px; align-items: center;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+}
+.opt:last-child { border-bottom: 0; }
+.opt .site-name { font-weight: 700; font-size: 13.5px; color: var(--site); display: flex; align-items: center; gap: 6px; }
+.opt .site-name::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--site); flex: none; }
+.opt .what b { display: block; font-size: 14px; }
+.opt .what small, .opt .price small, .opt .when small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.opt .what small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.opt .when b { font-size: 14px; }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 0 8px; border-radius: 999px; margin-inline-start: 4px; vertical-align: 1px; }
+.pill.hot { background: var(--ok-bg); color: var(--ok); }
+.pill.soon { background: var(--accent-2); color: var(--accent); }
+.pill.later { background: var(--surface-2); color: var(--muted); }
+.pill.past { background: var(--warn-bg); color: var(--warn); }
+.opt .price b { font-size: 14px; }
+.btn {
+  display: inline-flex; justify-content: center; align-items: center; padding: 7px 12px; border-radius: 10px; font-weight: 700;
+  font-size: 13.5px; text-decoration: none; background: var(--accent); color: var(--accent-ink); white-space: nowrap;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--border); font-weight: 500; }
+.opt.full { color: var(--muted); }
+.opt.full .when { color: var(--faint); font-size: 13px; }
+details.more { border-top: 1px solid var(--border); }
+details.more summary { cursor: pointer; padding: 8px 16px; font-size: 13px; color: var(--muted); list-style: none; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::before { content: "◂ "; }
+details.more[open] summary::before { content: "▾ "; }
+details.more .opts { border-top: 0; }
+.doc-foot { display: flex; gap: 8px 18px; flex-wrap: wrap; padding: 10px 16px; background: var(--surface-2); font-size: 13px; align-items: center; }
+.doc-foot a { text-decoration: none; }
+.doc-foot .phones a { margin-inline-end: 8px; }
+.doc.nobook .doc-head { padding-bottom: 6px; }
+.nobook-msg { padding: 0 16px 10px; font-size: 13.5px; color: var(--warn); }
+.note { padding: 6px 16px 10px; font-size: 12.5px; color: var(--muted); }
+
+.empty { text-align: center; padding: 40px 16px; color: var(--muted); background: var(--surface); border: 1px dashed var(--border); border-radius: 16px; }
+
+/* footer */
+footer { border-top: 1px solid var(--border); padding: 18px 0 40px; color: var(--muted); font-size: 13px; }
+.status { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 12px; }
+.status span { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 3px 10px; }
+.status .bad { background: var(--danger-bg); color: var(--danger); border-color: transparent; }
+.tips { margin: 8px 0; padding-inline-start: 18px; }
+.sos-box { background: var(--danger-bg); color: var(--danger); padding: 10px 14px; border-radius: 12px; font-weight: 700; margin: 12px 0; }
+
+@media (max-width: 760px) {
+  h1 { font-size: 20px; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .opt {
+    grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "site btn" "what what" "when when" "price price"; gap: 2px 10px;
+  }
+  .opt .site-name { grid-area: site; } .opt .what { grid-area: what; } .opt .when { grid-area: when; }
+  .opt .price { grid-area: price; } .opt .price b, .opt .price small { display: inline; margin-inline-end: 6px; } .opt .act { grid-area: btn; }
+  .opt .what small { white-space: normal; }
+  .rating { font-size: 12px; }
+}
+@media print {
+  .toolbar, .top-actions, details.more summary { display: none !important; }
+  details.more > * { display: block; }
+  body { background: #fff; }
+  .doc, .tile, .best-card { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <div class="top-row">
+    <div>
+      <h1 id="title"></h1>
+      <div class="meta" id="meta"></div>
+    </div>
+    <div class="top-actions">
+      <a class="icon-btn sos" href="tel:115">اورژانس ۱۱۵</a>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="تغییر حالت روشن/تاریک"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span>روشن / تاریک</span></button>
+      <button class="icon-btn" type="button" id="printBtn">چاپ / PDF</button>
+    </div>
+  </div>
+  <div id="banners"></div>
+  <div class="tiles" id="tiles"></div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="tb-row">
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="جستجو در نام، تخصص، مطب یا آدرس…" autocomplete="off">
+      </label>
+      <div class="seg" role="group" aria-label="نوع ویزیت" id="visitSeg">
+        <button type="button" data-v="all" aria-pressed="true">همه</button>
+        <button type="button" data-v="in_person" aria-pressed="false">حضوری</button>
+        <button type="button" data-v="online" aria-pressed="false">آنلاین</button>
+      </div>
+      <select id="sort" aria-label="مرتب‌سازی">
+        <option value="soonest">زودترین نوبت</option>
+        <option value="cheapest">ارزان‌ترین</option>
+        <option value="rating">بیشترین امتیاز</option>
+      </select>
+      <label class="check"><input type="checkbox" id="onlyAvail"> فقط نوبت خالی</label>
+    </div>
+    <div class="tb-row chips" id="fieldChips" aria-label="تخصص"></div>
+    <div class="tb-row chips" id="siteChips" aria-label="سایت‌ها"></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="bestSec">
+    <h2>بهترین گزینه‌ها</h2>
+    <div class="best" id="best"></div>
+  </section>
+  <section>
+    <h2 id="listTitle">پزشکان</h2>
+    <div class="list" id="list"></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div><b>سایت‌های بررسی‌شده</b></div>
+  <div class="status" id="status"></div>
+  <ul class="tips">
+    <li>پزشکان هم‌نام ممکن است افراد متفاوتی باشند. پروفایل‌ها بر اساس نام، شهر و تخصص یکی شده‌اند؛ قبل از رزرو شماره نظام پزشکی را در پروفایل چک کنید.</li>
+    <li>قبل از پرداخت، پوشش بیمه و قوانین لغو نوبت و برگشت پول را در صفحه رزرو بخوانید و پیامک تأیید نوبت را نگه دارید.</li>
+    <li>اگر نوبت اینترنتی پیدا نکردید با تلفن مطب تماس بگیرید؛ گاهی نوبت تلفنی یا لغوشده هست. نوبت‌ها معمولاً اول هفته یا اول ماه باز می‌شوند.</li>
+    <li>قیمت‌ها و زمان‌ها لحظه جستجو از سایت‌ها خوانده شده و ممکن است تغییر کنند. در «نوبت دات آی آر» فقط روز و ساعت کاری مطب مشخص است.</li>
+  </ul>
+  <div class="sos-box">در موارد اورژانسی منتظر نوبت نمانید: با ۱۱۵ تماس بگیرید یا به اورژانس نزدیک‌ترین بیمارستان بروید.</div>
+</footer>
+
+<script id="report-data" type="application/json">__REPORT_DATA__</script>
+<script>
+(() => {
+  "use strict";
+  const DATA = JSON.parse(document.getElementById("report-data").textContent);
+  const $ = (s) => document.querySelector(s);
+
+  // ---------------------------------------------------------------- helpers
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const safeUrl = (u) => (/^https?:\/\//i.test(String(u || "")) ? String(u) : "#");
+  const fa = (s) => String(s ?? "").replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  const faNum = (n) => Number(n).toLocaleString("fa-IR");
+  const telHref = (p) => "tel:" + String(p).replace(/[^\d+]/g, "");
+  const SITES = ["paziresh24", "doctoreto", "nobat", "drnext", "darmankade"];
+  const siteVar = (id) => (SITES.includes(id) ? `--site: var(--s-${id})` : "--site: var(--accent)");
+
+  const TZ = "Asia/Tehran";
+  const keyFmt = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
+  const dayFmt = new Intl.DateTimeFormat("fa-IR-u-ca-persian", { timeZone: TZ, weekday: "long", day: "numeric", month: "long" });
+  const timeFmt = new Intl.DateTimeFormat("fa-IR", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+  const dayDiff = (d) => Math.round((Date.parse(keyFmt.format(d)) - Date.parse(keyFmt.format(new Date()))) / 864e5);
+  function rel(diff) {
+    if (diff < 0) return ["گذشته", "past"];
+    if (diff === 0) return ["امروز", "hot"];
+    if (diff === 1) return ["فردا", "hot"];
+    if (diff === 2) return ["پس‌فردا", "soon"];
+    if (diff < 14) return [`${fa(diff)} روز دیگر`, "soon"];
+    if (diff < 60) return [`حدود ${fa(Math.round(diff / 7))} هفته دیگر`, "later"];
+    return [`حدود ${fa(Math.round(diff / 30))} ماه دیگر`, "later"];
+  }
+  function whenHtml(o) {
+    if (!o.firstFree) return `<span>${esc(o.unavailable || "نوبت خالی ندارد")}</span>`;
+    const d = new Date(o.firstFree);
+    const [r, cls] = rel(dayDiff(d));
+    const time = o.dayOnly ? "" : `، ساعت ${timeFmt.format(d)}`;
+    return `<b>${esc(dayFmt.format(d))}${time}</b><span class="pill ${cls}">${r}</span>${o.hours ? `<small>${esc(o.hours)}</small>` : ""}`;
+  }
+  const whenText = (o) => {
+    const d = new Date(o.firstFree);
+    return `${dayFmt.format(d)}${o.dayOnly ? "" : `، ${timeFmt.format(d)}`} (${rel(dayDiff(d))[0]})`;
+  };
+  const initial = (name) => (String(name).replace(/^(دکتر|پروفسور)\s+/, "").replace(/^سید(ه)?\s+/, "").trim()[0] || "؟");
+  const ratingHtml = (r) =>
+    r && (r.value || r.count)
+      ? `<div class="rating"><span class="star">★</span> <b>${fa(r.value.toFixed(1)).replace(".", "٫")}</b> از ۵<br>${r.count ? `${faNum(r.count)} نظر` : ""}${
+          r.satisfaction != null ? ` · رضایت ${fa(r.satisfaction)}٪` : ""
+        }</div>`
+      : `<div class="rating">بدون امتیاز</div>`;
+
+  // ---------------------------------------------------------------- state
+  const state = { q: "", visit: "all", sort: "soonest", onlyAvail: false, field: "all", sites: new Set(DATA.platforms.map((p) => p.id)) };
+  try {
+    const t = localStorage.getItem("doctor-report-theme");
+    if (t) document.documentElement.dataset.theme = t;
+  } catch {}
+
+  const norm = (s) =>
+    String(s || "").replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/[‌\s]+/g, "").toLowerCase();
+
+  const optKeep = (o) => state.sites.has(o.platform) && (state.visit === "all" || (state.visit === "online" ? o.online : !o.online));
+  const tKey = (o) => (o.firstFree ? Date.parse(o.firstFree) : Infinity);
+  const pKey = (o) => (o.firstFree && o.priceToman != null ? o.priceToman : Infinity);
+  const optCmp = (a, b) => {
+    const av = !!a.firstFree, bv = !!b.firstFree;
+    if (av !== bv) return av ? -1 : 1;
+    if (state.sort === "cheapest") return (a.priceToman ?? Infinity) - (b.priceToman ?? Infinity) || tKey(a) - tKey(b);
+    return tKey(a) - tKey(b) || (a.priceToman ?? Infinity) - (b.priceToman ?? Infinity);
+  };
+
+  function view() {
+    const q = norm(state.q);
+    const out = [];
+    for (const g of DATA.groups) {
+      if (state.field !== "all" && g.field !== state.field) continue;
+      if (!g.platforms.some((p) => state.sites.has(p))) continue;
+      const opts = g.options.filter(optKeep).sort(optCmp);
+      if (state.visit !== "all" && !opts.length) continue;
+      const avail = opts.filter((o) => o.firstFree);
+      if (state.onlyAvail && !avail.length) continue;
+      if (q) {
+        const hay = norm([g.name, g.specialty, ...g.specialties, g.city, g.office, ...g.options.map((o) => `${o.where || ""} ${o.address || ""}`)].join(" "));
+        if (!hay.includes(q)) continue;
+      }
+      out.push({ g, opts, avail });
+    }
+    const gTime = (x) => Math.min(Infinity, ...x.avail.map(tKey));
+    const gPrice = (x) => Math.min(Infinity, ...x.avail.map(pKey));
+    const gRate = (x) => (x.g.rating ? x.g.rating.value * 1e6 + x.g.rating.count : -1);
+    out.sort((a, b) => {
+      const av = a.avail.length > 0, bv = b.avail.length > 0;
+      if (av !== bv) return av ? -1 : 1;
+      if (state.sort === "cheapest") return gPrice(a) - gPrice(b) || gTime(a) - gTime(b);
+      if (state.sort === "rating") return gRate(b) - gRate(a) || gTime(a) - gTime(b);
+      return gTime(a) - gTime(b) || gRate(b) - gRate(a);
+    });
+    return out;
+  }
+
+  // ---------------------------------------------------------------- render: static parts
+  $("#title").innerHTML = `جستجوی پزشک: <span class="q">«${esc(DATA.query)}»</span>${DATA.city ? ` در ${esc(DATA.city)}` : ""}`;
+  const gen = new Date(DATA.generatedAt);
+  const okCount = DATA.platforms.filter((p) => p.ok).length;
+  $("#meta").textContent = `زمان جستجو: ${dayFmt.format(gen)}، ساعت ${timeFmt.format(gen)} به وقت تهران · ${fa(okCount)} از ${fa(DATA.platforms.length)} سایت نوبت‌دهی بررسی شد`;
+  {
+    const b = [];
+    const hours = (Date.now() - gen.getTime()) / 36e5;
+    if (hours > 3)
+      b.push(`<div class="banner warn">این اطلاعات ${hours < 48 ? `${fa(Math.round(hours))} ساعت` : `${fa(Math.round(hours / 24))} روز`} پیش گرفته شده است. نوبت‌ها سریع پر می‌شوند؛ برای اطلاعات به‌روز دوباره جستجو کنید.</div>`);
+    const bad = DATA.platforms.filter((p) => !p.ok);
+    if (bad.length) b.push(`<div class="banner danger">⚠️ ${bad.map((p) => esc(p.name)).join("، ")} پاسخ نداد؛ ممکن است نتایج آن سایت در این صفحه نباشد.</div>`);
+    $("#banners").innerHTML = b.join("");
+  }
+  $("#status").innerHTML = DATA.platforms
+    .map((p) =>
+      p.ok
+        ? `<span>✓ <a href="${esc(safeUrl(p.site))}" target="_blank" rel="noopener noreferrer">${esc(p.name)}</a> · ${fa(p.count)} پزشک${p.ms != null ? ` · ${fa((p.ms / 1000).toFixed(1))} ثانیه` : ""}</span>`
+        : `<span class="bad">✗ ${esc(p.name)}: پاسخ نداد (${esc(p.error || "خطا")})</span>`
+    )
+    .join("");
+
+  // field chips (counts over all doctors)
+  const fieldCounts = new Map();
+  for (const g of DATA.groups) fieldCounts.set(g.field, (fieldCounts.get(g.field) || 0) + 1);
+  const fields = [...fieldCounts.entries()].sort((a, b) => b[1] - a[1]);
+  if (fields.length > 1) {
+    $("#fieldChips").innerHTML =
+      `<button type="button" class="chip" data-f="all" aria-pressed="true">همه تخصص‌ها<span class="c">${fa(DATA.groups.length)}</span></button>` +
+      fields.map(([f, c]) => `<button type="button" class="chip" data-f="${esc(f)}" aria-pressed="false">${esc(f)}<span class="c">${fa(c)}</span></button>`).join("");
+  } else $("#fieldChips").remove();
+
+  const sitesWithData = DATA.platforms.filter((p) => p.ok && p.count);
+  if (sitesWithData.length > 1) {
+    $("#siteChips").innerHTML = sitesWithData
+      .map((p) => `<button type="button" class="chip site" style="${siteVar(p.id)}" data-s="${esc(p.id)}" aria-pressed="true">${esc(p.name)}</button>`)
+      .join("");
+  } else $("#siteChips").remove();
+
+  // ---------------------------------------------------------------- render: dynamic parts
+  function optRow(o) {
+    return `<li class="opt ${o.firstFree ? "avail" : "full"}" style="${siteVar(o.platform)}">
+      <div class="site-name">${esc(o.platformName)}</div>
+      <div class="what"><b>${esc(o.typeLabel)}</b>${o.where ? `<small title="${esc(o.address || o.where)}">${esc(o.where)}</small>` : ""}</div>
+      <div class="when num">${whenHtml(o)}</div>
+      <div class="price num"><b>${esc(o.priceMain)}</b>${o.priceSub ? `<small>${esc(o.priceSub)}</small>` : ""}</div>
+      <div class="act">${
+        o.firstFree
+          ? `<a class="btn" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener noreferrer">رزرو نوبت</a>`
+          : `<a class="btn ghost" href="${esc(safeUrl(o.url))}" target="_blank" rel="noopener noreferrer">پروفایل</a>`
+      }</div>
+    </li>`;
+  }
+
+  function card({ g, opts, avail }) {
+    const full = opts.filter((o) => !o.firstFree);
+    const siteTags = g.profiles
+      .filter((p, i, a) => a.findIndex((x) => x.platform === p.platform) === i)
+      .map((p) => `<span class="tag site" style="${siteVar(p.platform)}">${esc(p.platformName)}</span>`)
+      .join("");
+    const ins = g.insurances.map((x) => `<span class="tag ins">بیمه: ${esc(x)}</span>`).join("");
+    const aka = g.specialties.length > 1 ? `<span class="tag" title="عنوان تخصص در سایت‌های مختلف">${esc(g.specialties.join(" / "))}</span>` : "";
+    const phones = g.phones.length
+      ? `<span class="phones">📞 ${g.phones.slice(0, 4).map((p) => `<a class="ltr num" href="${esc(telHref(p))}">${esc(p)}</a>`).join("")}</span>`
+      : "";
+    const profiles = `<span>پروفایل: ${g.profiles
+      .map((p) => `<a href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener noreferrer">${esc(p.platformName)}</a>`)
+      .join("، ")}</span>`;
+    const body = avail.length
+      ? `<ul class="opts">${avail.map(optRow).join("")}</ul>${
+          full.length ? `<details class="more"><summary>${fa(full.length)} گزینه دیگر بدون نوبت خالی</summary><ul class="opts">${full.map(optRow).join("")}</ul></details>` : ""
+        }`
+      : `<div class="nobook-msg">الان نوبت خالی اینترنتی ندارد${g.office ? ` · محل: ${esc(g.office)}` : ""}${g.phones.length ? " · با مطب تماس بگیرید" : ""}</div>${
+          full.length ? `<details class="more"><summary>نمایش ${fa(full.length)} گزینه</summary><ul class="opts">${full.map(optRow).join("")}</ul></details>` : ""
+        }`;
+    return `<article class="doc ${avail.length ? "" : "nobook"}" id="doc-${g.id}">
+      <div class="doc-head">
+        <div class="avatar" aria-hidden="true">${esc(initial(g.name))}</div>
+        <div class="doc-title"><h3>${esc(g.name)}</h3><div class="sub">${esc(g.specialty || "تخصص نامشخص")}${g.city ? ` · ${esc(g.city)}` : ""}</div></div>
+        ${ratingHtml(g.rating)}
+      </div>
+      <div class="tags">${siteTags}${ins}${aka}</div>
+      ${body}
+      ${g.notes.length ? `<div class="note">${g.notes.map(esc).join(" · ")}</div>` : ""}
+      <div class="doc-foot">${phones}${profiles}</div>
+    </article>`;
+  }
+
+  function pickBest(items) {
+    const all = items.flatMap((x) => x.avail.map((o) => ({ g: x.g, o })));
+    const by = (f, k) => all.filter(f).sort((a, b) => k(a.o) - k(b.o) || tKey(a.o) - tKey(b.o))[0];
+    const priced = (o) => (o.priceToman != null ? o.priceToman : Infinity);
+    const picks = [];
+    const add = (adj, kind, p) => {
+      if (!p || (adj === "ارزان‌ترین" && p.o.priceToman == null)) return;
+      const hit = picks.find((x) => x.p.o === p.o);
+      hit ? hit.adjs.push(adj) : picks.push({ p, kind, adjs: [adj] });
+    };
+    add("زودترین", "نوبت حضوری", by((x) => !x.o.online, tKey));
+    add("ارزان‌ترین", "نوبت حضوری", by((x) => !x.o.online && x.o.priceToman != null, priced));
+    add("زودترین", "مشاوره آنلاین", by((x) => x.o.online, tKey));
+    add("ارزان‌ترین", "مشاوره آنلاین", by((x) => x.o.online && x.o.priceToman != null, priced));
+    return picks;
+  }
+
+  function render() {
+    const items = view();
+    const avail = items.filter((x) => x.avail.length);
+    const all = avail.flatMap((x) => x.avail.map((o) => ({ g: x.g, o })));
+    const soon = (f) => all.filter(f).sort((a, b) => tKey(a.o) - tKey(b.o))[0];
+    const sIn = soon((x) => !x.o.online);
+    const sOn = soon((x) => x.o.online);
+    const tileSoon = (label, p) =>
+      p
+        ? `<button type="button" class="tile" data-go="${p.g.id}"><div class="k">${label}</div><div class="v sm num">${esc(whenText(p.o))}</div><div class="s">${esc(p.g.name)} · ${esc(p.o.platformName)}</div></button>`
+        : `<div class="tile"><div class="k">${label}</div><div class="v sm">—</div><div class="s">موردی پیدا نشد</div></div>`;
+    $("#tiles").innerHTML =
+      `<div class="tile"><div class="k">پزشک پیدا شد</div><div class="v num">${fa(items.length)}</div><div class="s">${
+        items.length !== DATA.groups.length ? `از ${fa(DATA.groups.length)} پزشک (با فیلتر فعلی)` : "افراد مختلف با این نام"
+      }</div></div>` +
+      `<div class="tile"><div class="k">نوبت خالی اینترنتی دارند</div><div class="v num">${fa(avail.length)}</div><div class="s">${fa(items.length - avail.length)} پزشک نوبت خالی ندارند</div></div>` +
+      tileSoon("زودترین نوبت حضوری", sIn) +
+      tileSoon("زودترین مشاوره آنلاین", sOn);
+
+    const picks = pickBest(items);
+    $("#bestSec").hidden = !picks.length;
+    $("#best").innerHTML = picks
+      .map(
+        ({ p, kind, adjs }) => `<div class="best-card" style="${siteVar(p.o.platform)}">
+        <div class="lbl">${adjs.join(" و ")} ${kind}</div>
+        <div class="who">${esc(p.g.name)}</div>
+        <div class="muted" style="font-size:13px">${esc(p.g.specialty || "")} · <span style="color:var(--site);font-weight:700">${esc(p.o.platformName)}</span> · ${esc(p.o.typeLabel)}</div>
+        <div class="num" style="font-size:13.5px">${esc(whenText(p.o))}</div>
+        <div class="row"><b class="num">${esc(p.o.priceMain)}</b><a class="btn" href="${esc(safeUrl(p.o.url))}" target="_blank" rel="noopener noreferrer">رزرو</a></div>
+      </div>`
+      )
+      .join("");
+
+    $("#listTitle").textContent = `پزشکان (${fa(items.length)})`;
+    $("#list").innerHTML = items.length
+      ? items.map(card).join("")
+      : `<div class="empty">با این فیلترها پزشکی پیدا نشد.<br><button type="button" class="icon-btn" id="resetBtn" style="margin-top:10px">پاک کردن فیلترها</button></div>`;
+  }
+
+  // ---------------------------------------------------------------- events
+  let qTimer;
+  $("#q").addEventListener("input", (e) => {
+    clearTimeout(qTimer);
+    qTimer = setTimeout(() => ((state.q = e.target.value), render()), 120);
+  });
+  $("#visitSeg").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-v]");
+    if (!b) return;
+    state.visit = b.dataset.v;
+    for (const x of $("#visitSeg").children) x.setAttribute("aria-pressed", String(x === b));
+    render();
+  });
+  $("#sort").addEventListener("change", (e) => ((state.sort = e.target.value), render()));
+  $("#onlyAvail").addEventListener("change", (e) => ((state.onlyAvail = e.target.checked), render()));
+  document.addEventListener("click", (e) => {
+    const f = e.target.closest("[data-f]");
+    if (f) {
+      state.field = f.dataset.f;
+      for (const x of document.querySelectorAll("[data-f]")) x.setAttribute("aria-pressed", String(x === f));
+      return render();
+    }
+    const s = e.target.closest("[data-s]");
+    if (s) {
+      const id = s.dataset.s;
+      if (state.sites.has(id) && state.sites.size > 1) state.sites.delete(id);
+      else state.sites.add(id);
+      for (const x of document.querySelectorAll("[data-s]")) x.setAttribute("aria-pressed", String(state.sites.has(x.dataset.s)));
+      return render();
+    }
+    const go = e.target.closest("[data-go]");
+    if (go) {
+      const el = document.getElementById(`doc-${go.dataset.go}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.classList.remove("flash");
+        void el.offsetWidth;
+        el.classList.add("flash");
+      }
+      return;
+    }
+    if (e.target.closest("#resetBtn")) {
+      Object.assign(state, { q: "", visit: "all", onlyAvail: false, field: "all", sites: new Set(DATA.platforms.map((p) => p.id)) });
+      $("#q").value = "";
+      $("#onlyAvail").checked = false;
+      for (const x of $("#visitSeg").children) x.setAttribute("aria-pressed", String(x.dataset.v === "all"));
+      for (const x of document.querySelectorAll("[data-f]")) x.setAttribute("aria-pressed", String(x.dataset.f === "all"));
+      for (const x of document.querySelectorAll("[data-s]")) x.setAttribute("aria-pressed", "true");
+      render();
+    }
+  });
+  $("#printBtn").addEventListener("click", () => {
+    for (const d of document.querySelectorAll("details.more")) d.open = true;
+    window.print();
+  });
+  $("#themeBtn").addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("doctor-report-theme", root.dataset.theme); } catch {}
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

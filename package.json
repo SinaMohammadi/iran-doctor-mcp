@@ -1,0 +1,52 @@
+{
+  "name": "iran-doctor-mcp",
+  "version": "1.1.0",
+  "description": "MCP server + CLI: find a doctor by name across Iranian booking sites (Paziresh24, Doctoreto, Nobat, DrNext, Darmankade) with first free appointment, price and an interactive HTML report",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/server.js",
+  "exports": {
+    ".": "./src/server.js",
+    "./search": "./src/search.js",
+    "./report": "./src/report.js",
+    "./html": "./src/html.js"
+  },
+  "bin": {
+    "iran-doctor-mcp": "src/index.js",
+    "iran-doctor-report": "src/cli.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "report": "node src/cli.js",
+    "test": "node --test \"test/unit/*.test.js\"",
+    "test:live": "node test/live.js",
+    "check": "node -e \"for (const f of require('fs').readdirSync('src',{recursive:true})) if (f.endsWith('.js')) require('child_process').execFileSync(process.execPath,['--check','src/'+f],{stdio:'inherit'})\"",
+    "inspect": "npx @modelcontextprotocol/inspector node src/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "iran",
+    "doctor",
+    "appointment",
+    "paziresh24",
+    "doctoreto",
+    "nobat",
+    "drnext",
+    "darmankade",
+    "persian"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  }
+}
