@@ -1,7 +1,6 @@
-[![M8ven Score](https://m8ven.ai/badge/mcp/sinamohammadi-iran-doctor-mcp-4gwmhu?v=f94c1694695405a03f950b698394dce7)](https://m8ven.ai/mcp/sinamohammadi-iran-doctor-mcp-4gwmhu?s=readme)
-
 # iran-doctor-mcp
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/sinamohammadi-iran-doctor-mcp-4gwmhu?v=f94c1694695405a03f950b698394dce7)](https://m8ven.ai/mcp/sinamohammadi-iran-doctor-mcp-4gwmhu?s=readme)
 **Find a doctor by name across Iran's online booking sites: first free appointment, visit price and a booking link, in one answer.**
 
 An [MCP](https://modelcontextprotocol.io) server (for Claude and other MCP clients) plus a command-line tool. It searches
