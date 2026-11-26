@@ -1,3 +1,5 @@
+[![M8ven Score](https://m8ven.ai/badge/mcp/sinamohammadi-iran-doctor-mcp-4gwmhu?v=f94c1694695405a03f950b698394dce7)](https://m8ven.ai/mcp/sinamohammadi-iran-doctor-mcp-4gwmhu?s=readme)
+
 # iran-doctor-mcp
 
 **Find a doctor by name across Iran's online booking sites: first free appointment, visit price and a booking link, in one answer.**
@@ -12,13 +14,13 @@ five booking platforms in parallel, merges the profiles that belong to the same 
 > جستجو می‌کند و برای هر پزشک زودترین نوبت خالی، هزینه ویزیت، تلفن مطب و لینک رزرو را نشان می‌دهد. پروفایل‌های یک پزشک
 > در سایت‌های مختلف یکی می‌شوند و نتیجه یک صفحه HTML تعاملی هم دارد.
 
-| | |
-|---|---|
-| Version | 1.1.0 ([CHANGELOG](CHANGELOG.md)) |
-| Runtime | Node.js ≥ 22, two dependencies (`@modelcontextprotocol/sdk`, `zod`) |
-| Transport | MCP over stdio |
-| Tools | `search_doctor`, `get_doctor_details`, `list_platforms` |
-| Tests | `npm test` (offline, ~1 s) · `npm run test:live` (real sites) |
+|           |                                                                     |
+| --------- | ------------------------------------------------------------------- |
+| Version   | 1.1.0 ([CHANGELOG](CHANGELOG.md))                                   |
+| Runtime   | Node.js ≥ 22, two dependencies (`@modelcontextprotocol/sdk`, `zod`) |
+| Transport | MCP over stdio                                                      |
+| Tools     | `search_doctor`, `get_doctor_details`, `list_platforms`             |
+| Tests     | `npm test` (offline, ~1 s) · `npm run test:live` (real sites)       |
 
 ---
 
@@ -87,7 +89,7 @@ If the package is installed globally (`npm install -g .`), `"command": "iran-doc
 npm run inspect
 ```
 
-Then just ask, e.g. *«برای دکتر مریم احمدی در تهران زودترین نوبت را پیدا کن»*.
+Then just ask, e.g. _«برای دکتر مریم احمدی در تهران زودترین نوبت را پیدا کن»_.
 
 ---
 
@@ -98,16 +100,16 @@ Then just ask, e.g. *«برای دکتر مریم احمدی در تهران ز�
 Searches all (or selected) platforms in parallel and returns the Persian report. Unless disabled, it also saves the HTML
 page and returns it as a second content item (`resource_link`, `file://…`), with the path also written at the top of the report.
 
-| Argument | Type | Default | Description |
-|---|---|---|---|
-| `name` | string, 2–100 chars | — (required) | Doctor's name in Persian. Last name alone works. Titles («دکتر») and Arabic letters (ي/ك) are normalised. |
-| `city` | string, ≤ 50 chars | — | Persian city name. Each platform is searched **inside** that city, so local doctors are not crowded out. |
-| `platforms` | array | all | Subset of `paziresh24`, `doctoreto`, `nobat`, `drnext`, `darmankade`. |
-| `max_per_platform` | 1–10 | 5 | How many matching doctors to open per platform. |
-| `visit_type` | `all` \| `in_person` \| `online` | `all` | Filter visit types in the report. |
-| `sort` | `soonest` \| `cheapest` \| `rating` | `soonest` | Order of doctors and options. |
-| `include_json` | boolean | `false` | Append the raw structured results as JSON. |
-| `html` | boolean | `DOCTOR_MCP_HTML` (on) | Save the interactive HTML page. |
+| Argument           | Type                                | Default                | Description                                                                                               |
+| ------------------ | ----------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------- |
+| `name`             | string, 2–100 chars                 | — (required)           | Doctor's name in Persian. Last name alone works. Titles («دکتر») and Arabic letters (ي/ك) are normalised. |
+| `city`             | string, ≤ 50 chars                  | —                      | Persian city name. Each platform is searched **inside** that city, so local doctors are not crowded out.  |
+| `platforms`        | array                               | all                    | Subset of `paziresh24`, `doctoreto`, `nobat`, `drnext`, `darmankade`.                                     |
+| `max_per_platform` | 1–10                                | 5                      | How many matching doctors to open per platform.                                                           |
+| `visit_type`       | `all` \| `in_person` \| `online`    | `all`                  | Filter visit types in the report.                                                                         |
+| `sort`             | `soonest` \| `cheapest` \| `rating` | `soonest`              | Order of doctors and options.                                                                             |
+| `include_json`     | boolean                             | `false`                | Append the raw structured results as JSON.                                                                |
+| `html`             | boolean                             | `DOCTOR_MCP_HTML` (on) | Save the interactive HTML page.                                                                           |
 
 `isError` is set only when **every** platform failed. A single failing site is reported in the status line and the other results are still returned.
 
@@ -115,10 +117,10 @@ page and returns it as a second content item (`resource_link`, `file://…`), wi
 
 Every visit type with price, first free time, clinic address and phones for **one** profile (nobat.ir also lists the next open days).
 
-| Argument | Description |
-|---|---|
-| `platform` | One of the platform ids. |
-| `id` | The id from `search_doctor` JSON, or that platform's profile URL: paziresh24 = slug (`دکتر-مریم-احمدی-5`), doctoreto = `slug/code` (`dr-mehran-ahmadi/GxbEdZ`), nobat = page slug (`35865`), drnext = id (`zvOqzwrOZ4BZ`), darmankade = numeric id (`423925`). |
+| Argument   | Description                                                                                                                                                                                                                                                    |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `platform` | One of the platform ids.                                                                                                                                                                                                                                       |
+| `id`       | The id from `search_doctor` JSON, or that platform's profile URL: paziresh24 = slug (`دکتر-مریم-احمدی-5`), doctoreto = `slug/code` (`dr-mehran-ahmadi/GxbEdZ`), nobat = page slug (`35865`), drnext = id (`zvOqzwrOZ4BZ`), darmankade = numeric id (`423925`). |
 
 ### `list_platforms`
 
@@ -130,7 +132,7 @@ Supported platforms, what each provides, and the sites that were checked but exc
 
 `search_doctor` returns Markdown in Persian, written for the patient:
 
-1. **Summary**: how many *different* doctors share the name (by field), how many have a free slot now, and the soonest in-person and online slot.
+1. **Summary**: how many _different_ doctors share the name (by field), how many have a free slot now, and the soonest in-person and online slot.
 2. **One block per doctor**: rating, sites, insurance, and a table of options (site · visit type/clinic · first free time · price · booking link), followed by clinic phones. Options without a free slot come last. Doctors with no free slot at all are listed briefly at the end, with profile links and phones.
 3. **Best options**: soonest/cheapest in-person and online. When one option wins both, it is shown once («زودترین و ارزان‌ترین نوبت حضوری»).
 4. **Next steps**: pick the right doctor, where to book, the online fallback, try another site, phone the clinic, insurance and cancellation, emergency **115**.
@@ -145,11 +147,13 @@ Paziresh24 and DrNext are converted.
 
 ```markdown
 # نتیجه جستجوی پزشک: «مریم احمدی» در تهران
+
 _زمان جستجو: چهارشنبه ۲۷ آبان، ساعت ۱۱:۰۶ به وقت تهران · ۵ از ۵ سایت نوبت‌دهی بررسی شد_
 
 📄 **نسخه تعاملی (HTML) این گزارش:** `/…/reports/doctor-20261118-110600-مریم-احمدی-تهران.html`
 
 ## خلاصه
+
 - با این نام **۷ پزشک مختلف** پیدا شد (کاردرمانی، زنان و زایمان، قلب و عروق، …).
 - **۲** پزشک الان نوبت خالی اینترنتی دارند و **۵** پزشک ندارند.
 - **زودترین نوبت حضوری:** چهارشنبه ۲۷ آبان، ساعت ۰۸:۱۰ (امروز) — دکتر مریم احمدی در پذیرش۲۴
@@ -157,14 +161,16 @@ _زمان جستجو: چهارشنبه ۲۷ آبان، ساعت ۱۱:۰۶ به �
 ## ۱) پزشکان و نوبت‌های خالی (مرتب‌سازی: زودترین نوبت)
 
 ### ۱. دکتر مریم احمدی — کارشناس ارشد کاردرمانی · تهران
+
 - امتیاز: ⭐ ۵٫۰ از ۵ (۱۱ نظر، رضایت ۱۰۰٪) در پذیرش۲۴
 - در ۲ سایت: پذیرش۲۴، دکترتو
 
-| سایت | نوع ویزیت / محل | اولین نوبت خالی | هزینه | لینک |
-|---|---|---|---|---|
+| سایت    | نوع ویزیت / محل                | اولین نوبت خالی                          | هزینه                     | لینک      |
+| ------- | ------------------------------ | ---------------------------------------- | ------------------------- | --------- |
 | پذیرش۲۴ | حضوری — مطب مریم احمدی، قیطریه | **چهارشنبه ۲۷ آبان، ساعت ۰۸:۱۰ (امروز)** | ۵۰٬۰۰۰ تومان (هنگام رزرو) | [رزرو](…) |
-| دکترتو | مشاوره تلفنی | **چهارشنبه ۲۷ آبان، ساعت ۱۴:۰۰ (امروز)** | ۱۰۰٬۰۰۰ تومان | [رزرو](…) |
+| دکترتو  | مشاوره تلفنی                   | **چهارشنبه ۲۷ آبان، ساعت ۱۴:۰۰ (امروز)** | ۱۰۰٬۰۰۰ تومان             | [رزرو](…) |
 ```
+
 </details>
 
 ### How "same doctor" is decided
@@ -207,15 +213,15 @@ npm run report -- "<doctor name>" [city] [options]
 iran-doctor-report "<doctor name>" [city] [options]
 ```
 
-| Option | Description |
-|---|---|
-| `--max <n>` | Doctors to open per site (1–10, default 5). |
-| `--platforms a,b` | Subset of platform ids. |
-| `--sort <s>` | `soonest` \| `cheapest` \| `rating` (Markdown output). |
-| `--md` | Also print the Persian Markdown report. |
-| `--json` | Print the raw results as JSON (no HTML unless `--html`). |
-| `--html` | Save HTML even with `--json`. |
-| `--no-open` | Save the page but don't open the browser. |
+| Option            | Description                                              |
+| ----------------- | -------------------------------------------------------- |
+| `--max <n>`       | Doctors to open per site (1–10, default 5).              |
+| `--platforms a,b` | Subset of platform ids.                                  |
+| `--sort <s>`      | `soonest` \| `cheapest` \| `rating` (Markdown output).   |
+| `--md`            | Also print the Persian Markdown report.                  |
+| `--json`          | Print the raw results as JSON (no HTML unless `--html`). |
+| `--html`          | Save HTML even with `--json`.                            |
+| `--no-open`       | Save the page but don't open the browser.                |
 
 Exit codes: `0` success · `1` every site failed · `2` bad arguments · `78` invalid configuration.
 
@@ -231,22 +237,29 @@ iran-doctor-report "مریم احمدی" تهران --json > result.json
 All settings are optional environment variables. They are validated at startup. An invalid value stops the process with
 a one-line message and exit code 78.
 
-| Variable | Default | Description |
-|---|---|---|
-| `DOCTOR_MCP_TIMEOUT_MS` | `20000` | Timeout of one HTTP request (1000–120000). |
-| `DOCTOR_MCP_RETRIES` | `2` | Retries per request on network errors, timeouts, 429 and 5xx (0–5). Other 4xx responses are never retried. |
-| `DOCTOR_MCP_PLATFORM_DEADLINE_MS` | `45000` | Hard deadline for one platform's whole search. A slower site is reported as failed. |
-| `DOCTOR_MCP_MAX_RESPONSE_BYTES` | `8388608` | Max response body size (8 MB). |
-| `DOCTOR_MCP_CACHE_TTL` | `120` | Seconds to cache identical searches (per platform). `0` disables the cache. |
-| `DOCTOR_MCP_HTML` | `true` | Save an HTML page for every `search_doctor` call. The tool argument `html` overrides this. |
-| `DOCTOR_MCP_REPORT_DIR` | `<OS temp>/iran-doctor-mcp/reports/` | Where HTML reports are written. The default is always writable, also for global / `npx` installs; set this to keep reports somewhere permanent. |
-| `DOCTOR_MCP_REPORT_KEEP` | `200` | Keep at most this many reports; the oldest are deleted. `0` keeps all. |
-| `DOCTOR_MCP_LOG_LEVEL` | `info` (CLI: `warn`) | `debug` \| `info` \| `warn` \| `error` \| `silent`. |
+| Variable                          | Default                              | Description                                                                                                                                     |
+| --------------------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DOCTOR_MCP_TIMEOUT_MS`           | `20000`                              | Timeout of one HTTP request (1000–120000).                                                                                                      |
+| `DOCTOR_MCP_RETRIES`              | `2`                                  | Retries per request on network errors, timeouts, 429 and 5xx (0–5). Other 4xx responses are never retried.                                      |
+| `DOCTOR_MCP_PLATFORM_DEADLINE_MS` | `45000`                              | Hard deadline for one platform's whole search. A slower site is reported as failed.                                                             |
+| `DOCTOR_MCP_MAX_RESPONSE_BYTES`   | `8388608`                            | Max response body size (8 MB).                                                                                                                  |
+| `DOCTOR_MCP_CACHE_TTL`            | `120`                                | Seconds to cache identical searches (per platform). `0` disables the cache.                                                                     |
+| `DOCTOR_MCP_HTML`                 | `true`                               | Save an HTML page for every `search_doctor` call. The tool argument `html` overrides this.                                                      |
+| `DOCTOR_MCP_REPORT_DIR`           | `<OS temp>/iran-doctor-mcp/reports/` | Where HTML reports are written. The default is always writable, also for global / `npx` installs; set this to keep reports somewhere permanent. |
+| `DOCTOR_MCP_REPORT_KEEP`          | `200`                                | Keep at most this many reports; the oldest are deleted. `0` keeps all.                                                                          |
+| `DOCTOR_MCP_LOG_LEVEL`            | `info` (CLI: `warn`)                 | `debug` \| `info` \| `warn` \| `error` \| `silent`.                                                                                             |
 
 **Logging.** Logs are JSON lines on **stderr** (stdout is reserved for the MCP protocol), for example:
 
 ```json
-{"t":"2026-11-18T09:13:23.449Z","level":"info","msg":"search done","ms":9696,"doctors":10,"failed":[]}
+{
+  "t": "2026-11-18T09:13:23.449Z",
+  "level": "info",
+  "msg": "search done",
+  "ms": 9696,
+  "doctors": 10,
+  "failed": []
+}
 ```
 
 Use `DOCTOR_MCP_LOG_LEVEL=debug` to see every HTTP request with its timing, size, attempt number and errors.
@@ -293,15 +306,16 @@ test/
 
 ## Supported platforms
 
-| Platform | Name search | City search | First free time | Price | Source |
-|---|---|---|---|---|---|
-| پذیرش۲۴ paziresh24.com | ✓ | ✓ `/search/{slug}` | ✓ exact time | ✓ Rial → Toman | JSON API |
-| دکترتو doctoreto.com | ✓ | ✓ `citySlug=` | ✓ exact time | ✓ online visits (office visit paid at clinic) | `__NEXT_DATA__` |
-| نوبت nobat.ir | ✓ | ✓ city in query | ✓ day + clinic hours | ✗ booking is free, paid at clinic | HTML |
-| دکترنکست drnext.ir | ✓ | filtered on office city | ✓ exact time | ✓ Rial → Toman | JSON API |
-| درمانکده darmankade.com | ✓ | ✓ `city=` | ✓ exact time | ✓ Toman | JSON + `__NEXT_DATA__` |
+| Platform                | Name search | City search             | First free time      | Price                                         | Source                 |
+| ----------------------- | ----------- | ----------------------- | -------------------- | --------------------------------------------- | ---------------------- |
+| پذیرش۲۴ paziresh24.com  | ✓           | ✓ `/search/{slug}`      | ✓ exact time         | ✓ Rial → Toman                                | JSON API               |
+| دکترتو doctoreto.com    | ✓           | ✓ `citySlug=`           | ✓ exact time         | ✓ online visits (office visit paid at clinic) | `__NEXT_DATA__`        |
+| نوبت nobat.ir           | ✓           | ✓ city in query         | ✓ day + clinic hours | ✗ booking is free, paid at clinic             | HTML                   |
+| دکترنکست drnext.ir      | ✓           | filtered on office city | ✓ exact time         | ✓ Rial → Toman                                | JSON API               |
+| درمانکده darmankade.com | ✓           | ✓ `city=`               | ✓ exact time         | ✓ Toman                                       | JSON + `__NEXT_DATA__` |
 
 **Checked and not added**, because they don't offer the same "name → free time → price" search:
+
 - DoctorYab
 - Snapp Doctor
 - Tebinja
@@ -338,6 +352,7 @@ npm run inspect      # MCP Inspector UI
 ```
 
 **What the offline tests cover:**
+
 - Jalali calendar round-trips for every day from 2015 to 2035, Persian digits, name and city normalisation.
 - The URL allowlist.
 - Doctor grouping and every report section.
@@ -346,6 +361,7 @@ npm run inspect      # MCP Inspector UI
 - The MCP tool list, input limits and the SSRF refusal.
 
 **Releasing:**
+
 1. Bump `version` in `package.json`. The server reads its version from there.
 2. Add an entry to `CHANGELOG.md`.
 3. Run `npm test && npm run test:live`.
@@ -357,31 +373,62 @@ npm run inspect      # MCP Inspector UI
 Create `src/providers/<id>.js` exporting:
 
 ```js
-export const info = { id: "<id>", name: "نام فارسی", site: "https://…", app: "…", notes: "…" };
+export const info = {
+  id: "<id>",
+  name: "نام فارسی",
+  site: "https://…",
+  app: "…",
+  notes: "…",
+};
 
 /** Doctors matching `name` (and `city`, if given), at most `limit`. */
-export async function search(name, { city, limit }) { return [/* Doctor */]; }
+export async function search(name, { city, limit }) {
+  return [
+    /* Doctor */
+  ];
+}
 
 /** One profile by id or profile URL. */
-export async function details(id) { return /* Doctor */; }
+export async function details(id) {
+  return /* Doctor */;
+}
 ```
 
 ```ts
 type Doctor = {
-  platform: string; platformName: string; id: string; name: string;
-  specialty: string | null; city: string | null;
-  rating: number | null; ratingCount: number | null; satisfaction: number | null;  // satisfaction in %
-  insurances: string[]; profileUrl: string; notes: string[];
+  platform: string;
+  platformName: string;
+  id: string;
+  name: string;
+  specialty: string | null;
+  city: string | null;
+  rating: number | null;
+  ratingCount: number | null;
+  satisfaction: number | null; // satisfaction in %
+  insurances: string[];
+  profileUrl: string;
+  notes: string[];
   services: Service[];
 };
 type Service = {
-  type: "in_person" | "online" | "online_phone" | "online_text" | "online_video" | "online_audio";
+  type:
+    | "in_person"
+    | "online"
+    | "online_phone"
+    | "online_text"
+    | "online_video"
+    | "online_audio";
   label: string;
-  priceToman: number | null; priceNote: string | null;     // e.g. "حق ویزیت در مطب"
-  firstFree: Date | null;                                    // a real instant (Tehran time handled by util.parseTehranLocal)
-  firstFreeIsDayOnly?: boolean; firstFreeLabel: string | null; // label explains why there is no slot, or clinic hours
-  center: string | null; address: string | null; phones: string[];
-  bookingUrl: string; openDays?: { date: Date; hours: string | null }[];
+  priceToman: number | null;
+  priceNote: string | null; // e.g. "حق ویزیت در مطب"
+  firstFree: Date | null; // a real instant (Tehran time handled by util.parseTehranLocal)
+  firstFreeIsDayOnly?: boolean;
+  firstFreeLabel: string | null; // label explains why there is no slot, or clinic hours
+  center: string | null;
+  address: string | null;
+  phones: string[];
+  bookingUrl: string;
+  openDays?: { date: Date; hours: string | null }[];
 };
 ```
 
@@ -396,14 +443,14 @@ Then:
 
 ## Troubleshooting
 
-| Symptom | What to do |
-|---|---|
+| Symptom                                                       | What to do                                                                                                                                                                                                                                |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | A site shows `✗ … پاسخ نداد (timeout / HTTP 403 / ENOTFOUND)` | It's temporary or the site blocks your network; the other sites still work. Run with `DOCTOR_MCP_LOG_LEVEL=debug` to see the request. If one site keeps failing with parse errors, its page layout probably changed: update its provider. |
-| `configuration error: Invalid …` and exit 78 | Fix that environment variable (see [Configuration](#configuration)). |
-| The client doesn't list the tools | Check that `node --version` is ≥ 22 and that the path in the client config is absolute, then reconnect (`/mcp` in Claude Code). Logs go to the client's MCP log (stderr). |
-| Times look shifted | Times are computed in `Asia/Tehran` (UTC+03:30, no DST since 2022). The HTML page uses the browser's `Intl` time-zone data. |
-| Too many doctors with the same name | Pass `city`, or use the specialty chips on the HTML page. |
-| HTML page has no font styling offline | It falls back to Tahoma/system fonts; everything else works offline. |
+| `configuration error: Invalid …` and exit 78                  | Fix that environment variable (see [Configuration](#configuration)).                                                                                                                                                                      |
+| The client doesn't list the tools                             | Check that `node --version` is ≥ 22 and that the path in the client config is absolute, then reconnect (`/mcp` in Claude Code). Logs go to the client's MCP log (stderr).                                                                 |
+| Times look shifted                                            | Times are computed in `Asia/Tehran` (UTC+03:30, no DST since 2022). The HTML page uses the browser's `Intl` time-zone data.                                                                                                               |
+| Too many doctors with the same name                           | Pass `city`, or use the specialty chips on the HTML page.                                                                                                                                                                                 |
+| HTML page has no font styling offline                         | It falls back to Tahoma/system fonts; everything else works offline.                                                                                                                                                                      |
 
 ---
 
